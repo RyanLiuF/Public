@@ -33,12 +33,28 @@
 #if defined(__linux__) || defined(__linux)
 #define  __os_linux__
 #define WINAPI
+#define EXPORT_API_ATTR_DEFAULT	__attribute__ ((visibility("default")))
+#define EXPORT_API_ATTR_HIDDEN	__attribute__ ((visibility("hidden")))
+
 #include <dlfcn.h>
 #include <unistd.h>
+#include <string.h>
 #endif
 
 #if defined(__ANDROID__) || defined(_ANDROID)
 #define  __os_android__
+#define WINAPI
+#define EXPORT_API_ATTR_DEFAULT	__attribute__ ((visibility("default")))
+#define EXPORT_API_ATTR_HIDDEN	__attribute__ ((visibility("hidden")))
+
+#ifndef S_IREAD
+#define S_IREAD		S_IRUSR
+#endif
+
+#ifndef S_IWRITE
+#define S_IWRITE	S_IWUSR
+#endif
+
 #endif
 
 #if defined(__APPLE__)
