@@ -49,7 +49,16 @@ namespace stl
             auto time = std::chrono::system_clock::to_time_t(clock);
             auto localtime = std::localtime(&time);
             tmExtend tmp;
-            memcpy(&tmp, localtime, sizeof(std::tm));
+            // memcpy(&tmp, localtime, sizeof(std::tm));
+            tmp.tm_sec = localtime->tm_sec;
+            tmp.tm_min = localtime->tm_min;
+            tmp.tm_hour = localtime->tm_hour;
+            tmp.tm_mday = localtime->tm_mday;
+            tmp.tm_mon = localtime->tm_mon;
+            tmp.tm_wday = localtime->tm_wday;
+            tmp.tm_yday = localtime->tm_yday;
+            tmp.tm_isdst = localtime->tm_isdst;
+            tmp.tm_year = localtime->tm_year;
             tmp.tm_year += 1900;
             tmp.tm_mon += 1;
             tmp.tm_mill = std::chrono::duration_cast<std::chrono::milliseconds>(epoch).count()%1000;
